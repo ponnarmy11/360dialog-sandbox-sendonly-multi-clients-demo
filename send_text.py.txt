@@ -1,0 +1,22 @@
+import requests, json
+
+API_KEY = "ON8MBLIFKTW6F1RCPUHZXR5A3Y05B3PV"
+url = "https://waba-sandbox.360dialog.io/v1/messages"
+
+headers = {
+    "Authorization": f"Bearer " + API_KEY,
+    "Content-Type": "application/json"
+}
+
+aspirants = json.load(open("aspirants.json"))["numbers"]
+
+for number in aspirants:
+    payload = {
+        "to": number,
+        "type": "text",
+        "text": {
+            "body": "வணக்கம் 🙏 Tamil Aspirants!\nUPI QR code scan செய்து ₹1 contribute செய்யுங்கள் 🚀"
+        }
+    }
+    response = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(number, response.json())
